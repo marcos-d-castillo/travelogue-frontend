@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import Nav from './components/Nav';
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
-import Map from './components/Map';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import AddLocationPage from './pages/AddLocationPage.js'
+import Nav from './components/Nav'
+import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
+import Map from './components/Map'
+import './App.css'
 
 class App extends Component {
 
@@ -82,6 +84,10 @@ class App extends Component {
   };
 
   render() {
+
+    //function to render logout page. Covered previously in one of the last Newsite challenges.
+
+
     let form;
     switch (this.state.displayed_form) {
       case 'login':
@@ -107,7 +113,12 @@ class App extends Component {
             ? `Hello, ${this.state.username}`
             : 'Please Log In'}
         </h3>
-        <Map />
+        <BrowserRouter>
+          <div>
+            <Route exact path="/add-location" component={AddLocationPage} />
+          </div>
+        </BrowserRouter>
+        {this.state.logged_in && <Map />}
       </div>
     );
   }
