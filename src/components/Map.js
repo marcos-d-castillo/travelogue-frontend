@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactMapGL, { Marker, Popup } from "react-map-gl"
 import CityPin from './CityPin'
 
@@ -12,6 +12,21 @@ const Map = (props) => {
     })
 
     const [selectedLocation, setSelectedLocation] = useState(null)
+
+
+    //when popup opens pressing esc will close
+    useEffect(() => {
+        const listener = e => {
+            if (e.key === "Escape") {
+                setSelectedLocation(null)
+            }
+        }
+        window.addEventListener("keydown", listener)
+
+        return () => {
+            window.removeEventListener("keydown", listener)
+        }
+    }, [])
 
     return (
         <div>

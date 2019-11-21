@@ -94,7 +94,6 @@ class App extends Component {
   };
 
   render() {
-    //function to render logout page. Covered previously in one of the last Newsite challenges.
 
     let form;
     switch (this.state.displayed_form) {
