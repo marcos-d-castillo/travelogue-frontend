@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import AddLocationPage from './pages/AddLocationPage.js'
+import AppNav from './components/AppNav'
+import ClassMap from './components/ClassMap'
+import AddLocationPage from './pages/AddLocationPage'
 import Nav from './components/Nav'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
-import Map from './components/Map'
 import './App.css'
 
 class App extends Component {
@@ -14,7 +15,9 @@ class App extends Component {
     this.state = {
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      username: '',
+      id: 0,
+      locations_visited: []
     };
   }
 
@@ -27,7 +30,11 @@ class App extends Component {
       })
         .then(res => res.json())
         .then(json => {
-          this.setState({ username: json.username });
+          this.setState({ 
+            username: json.username, 
+            id: json.id 
+          });
+          console.log(json)
         });
     }
   }
@@ -47,7 +54,9 @@ class App extends Component {
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username
+          username: json.user.username,
+          id: json.user.id,
+          locations_visited: json.user.locations_visited
         });
       });
   };
@@ -67,7 +76,8 @@ class App extends Component {
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.username
+          username: json.username,
+          id: json.id,
         });
       });
   };
@@ -84,9 +94,7 @@ class App extends Component {
   };
 
   render() {
-
     //function to render logout page. Covered previously in one of the last Newsite challenges.
-
 
     let form;
     switch (this.state.displayed_form) {
@@ -109,16 +117,22 @@ class App extends Component {
         />
         {form}
         <h3>
-          {this.state.logged_in
+          {localStorage.getItem('token')
             ? `Hello, ${this.state.username}`
-            : 'Please Log In'}
+            : ''}
         </h3>
         <BrowserRouter>
           <div>
-            <Route exact path="/add-location" component={AddLocationPage} />
+            <AppNav
+              logged_in={this.state.logged_in}
+              username={this.state.username}
+              id={this.state.id}
+            />
+            <hr />
+            <Route exact path="/" render={(props) => <ClassMap {...props} id={this.state.id} locations_visited={this.state.locations_visited}/>} />
+            <Route exact path="/add-location" render={(props) => <AddLocationPage {...props} id={this.state.id}/>} />
           </div>
         </BrowserRouter>
-        {this.state.logged_in && <Map />}
       </div>
     );
   }

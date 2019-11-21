@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
-import ReactMapGL from "react-map-gl"
+import ReactMapGL, { Marker } from "react-map-gl"
+
 
 export default function Map() {
+
+
     const [viewport, setViewport] = useState({
         width: "100vw",
         height: "90vh",
@@ -17,7 +20,11 @@ export default function Map() {
                 setViewport(viewport)
             }}
             >
-                markers here
+                {/* {this.props.locations_visited.map((location) => (
+                    <Marker key={location.id}>
+                        <div>Hey!</div>
+                    </Marker>
+                ))} */}
             </ReactMapGL>
         </div>
     )

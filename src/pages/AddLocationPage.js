@@ -12,11 +12,11 @@ class AddLocationPage extends Component {
     event.preventDefault()
     const locationObject = {
       name: event.target.elements[0].value,
-      latitude: event.target.elements[2].value,
-      longitude: event.target.elements[1].value,
-      pic_url: event.target.elements[3].value
+      latitude: event.target.elements[1].value,
+      longitude: event.target.elements[2].value,
+      pic_url: event.target.elements[3].value,
+      users_visited: [this.props.id]
     }
-    console.log(locationObject)
     LocationAPI.addLocation(locationObject)
       .then((_response) => { this.setState({ redirect: true }) })
   }
@@ -40,12 +40,12 @@ class AddLocationPage extends Component {
             <Form.Control/>
           </Form.Group>
 
-          <Form.Group controlId="price">
+          <Form.Group controlId="longitude">
             <Form.Label>Longitude</Form.Label>
             <Form.Control/>
           </Form.Group>
 
-          <Form.Group controlId="description">
+          <Form.Group controlId="pic_url">
             <Form.Label>Picture URL</Form.Label>
             <Form.Control/>
           </Form.Group>
