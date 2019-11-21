@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import AppNav from './components/AppNav'
-import ClassMap from './components/ClassMap'
+import Map from './components/Map'
 import AddLocationPage from './pages/AddLocationPage'
 import Nav from './components/Nav'
 import LoginForm from './components/LoginForm'
@@ -129,7 +129,7 @@ class App extends Component {
               id={this.state.id}
             />
             <hr />
-            <Route exact path="/" render={(props) => <ClassMap {...props} id={this.state.id} locations_visited={this.state.locations_visited}/>} />
+            <Route exact path="/" render={(props) => <Map {...props} id={this.state.id} locations_visited={this.state.locations_visited}/>} />
             <Route exact path="/add-location" render={(props) => <AddLocationPage {...props} id={this.state.id}/>} />
           </div>
         </BrowserRouter>
